@@ -1,0 +1,11 @@
+body {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    padding: 2rem;
+  }
+  button {
+    padding: 1rem;
+    margin: 1rem;
+    font-weight: bold;
+  }
+  

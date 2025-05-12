@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LawLink - Indian Legal AI Assistant</title>
+    <link rel="stylesheet" href="/features/lawlink-bot/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+</head>
+<body>
+    
+    <header>
+        <div class="logo">
+            <i class="fas fa-balance-scale"></i>
+            <h1>LawLink <span>AI</span></h1>
+        </div>
+        <p class="tagline">Your intelligent legal assistant for Indian laws</p>
+    </header>
+
+    <main>
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot-message">
+                <div class="message-header">LawLink</div>
+                <p>Welcome! I'm your AI legal assistant specializing in Indian laws. How can I help you today?</p>
+                <p>You can ask about:</p>
+                <ul>
+                    <li>Specific IPC, CrPC, or Evidence Act sections</li>
+                    <li>Recent Supreme Court or High Court judgments</li>
+                    <li>Legal procedures and rights in India</li>
+                </ul>
+                <p>Try: <em>"Explain IPC Section 420"</em> or <em>"What is the procedure for filing a FIR?"</em></p>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Ask about Indian laws..." autocomplete="off" aria-label="Ask a legal question">
+            <button id="askButton"><i class="fas fa-paper-plane"></i> Send</button>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="disclaimer">
+            <p><i class="fas fa-exclamation-circle"></i> <strong>Disclaimer:</strong> This AI provides general legal information only. It does not constitute legal advice. For specific cases, please consult a qualified advocate.</p>
+            <p>Refer to <a href="https://indiankanoon.org" target="_blank" rel="noopener noreferrer">Indian Kanoon</a> for authentic legal texts and judgments.</p>
+        </div>
+        <p>© 2023 LawLink AI | Justice at your fingertips</p>
+    </footer>
+
+    <script src="/features/lawlink-bot/script.js"></script>
+</body>
+</html>
