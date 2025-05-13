@@ -8,36 +8,45 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Validate environment variables on startup
+// Environment variable check
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 if (!OPENROUTER_API_KEY) {
   console.error('FATAL: OpenRouter API key missing in environment variables.');
-  process.exit(1); // Crash early if key is missing
+  process.exit(1);
 }
 
-// Rate limiting
+// === CORS ===
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://law-link-aritra.vercel.app'],
+  methods: ['GET', 'POST'],
+  credentials: false
+}));
+
+// === Rate Limiting ===
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message: 'Too many requests. Please try again later.'
 });
 
-// Middleware
-app.use(cors());
+// === Middleware ===
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
 
-// Helper function for OpenRouter API calls
+// === Helper Function ===
 const callOpenRouter = async (messages, res, origin) => {
   try {
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
-      { model: 'gpt-3.5-turbo', messages },
+      {
+        model: 'gpt-3.5-turbo',
+        messages
+      },
       {
         headers: {
           'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': origin || 'https://your-app.vercel.app' // Dynamic referer
+          'HTTP-Referer': origin || 'https://law-link-aritra.vercel.app'
         }
       }
     );
@@ -48,12 +57,14 @@ const callOpenRouter = async (messages, res, origin) => {
   }
 };
 
-// Routes
+// === Routes ===
+
+// Root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-// Feature routes (unchanged)
+// Feature Pages
 app.get('/features/lawlink-bot', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/features/lawlink-bot/index.html'));
 });
@@ -70,7 +81,7 @@ app.get('/features/harassment-complaint', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/features/harassment-complaint/index.html'));
 });
 
-// === AI Assistant Endpoint ===
+// === AI Chat Assistant ===
 app.post('/api/ask', apiLimiter, async (req, res) => {
   if (!req.body.question) {
     return res.status(400).json({ error: 'Question is required.' });
@@ -94,7 +105,7 @@ app.post('/api/ask', apiLimiter, async (req, res) => {
   }
 });
 
-// === Complaint Builder ===
+// === Complaint Generator ===
 app.post('/api/generate-complaint', apiLimiter, async (req, res) => {
   const { name, incidentDate, location, description } = req.body;
 
@@ -117,25 +128,28 @@ app.post('/api/generate-complaint', apiLimiter, async (req, res) => {
       res,
       req.headers.origin
     );
+
     res.json({ success: true, complaintText });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// === Voice Log (Mock) ===
+// === Voice Log (Mock endpoint) ===
 app.post('/api/voice-log', apiLimiter, async (req, res) => {
   if (!req.body.audioFile) {
     return res.status(400).json({ error: 'Audio file is required.' });
   }
+
   res.json({ success: true, transcription: "Mock transcription for audio." });
 });
 
-// 404 Handler
+// === 404 Handler ===
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../public/404.html'));
 });
 
+// === Start Server ===
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
