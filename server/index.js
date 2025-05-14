@@ -17,7 +17,7 @@ if (!OPENROUTER_API_KEY) {
 
 // === CORS ===
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://law-link-aritra.vercel.app'],
+  origin: ['http://localhost:3000', 'https://legal-genie-phi.vercel.app'],
   methods: ['GET', 'POST'],
   credentials: false
 }));
@@ -46,7 +46,7 @@ const callOpenRouter = async (messages, res, origin) => {
         headers: {
           'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': origin || 'https://law-link-aritra.vercel.app'
+          'HTTP-Referer': origin || 'https://legal-genie-phi.vercel.app/'
         }
       }
     );
