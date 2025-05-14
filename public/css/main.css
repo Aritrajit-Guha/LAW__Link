@@ -52,7 +52,7 @@ body {
 .navigation ul {
   display: flex;
   list-style: none;
-  gap: 1.5rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
@@ -86,22 +86,40 @@ body {
 
 /* Hero Section */
 .hero {
+  position: relative;
   padding: 5rem 0;
-  background: linear-gradient(rgba(2, 12, 27, 0.8), rgba(2, 12, 27, 0.9)),
-              url('assets/hero-bg.jpg') center/cover;
+  background: url('hero-animation.jpg') center/cover no-repeat;
+  overflow: hidden;
+  text-align: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.274);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 0;
 }
 
 .hero-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
   flex-wrap: wrap;
+  text-align: center;
 }
 
 .hero-text {
   flex: 1 1 500px;
-  max-width: 600px;
+  max-width: 700px;
 }
 
 .hero-text h1 {
@@ -123,6 +141,7 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn {
@@ -313,9 +332,8 @@ body {
   margin-bottom: 1rem;
   position: relative;
   z-index: 1;
-  color: var(--accent-teal); /* Show emoji correctly */
+  color: var(--accent-teal);
 }
-
 
 .offering-card h3 {
   font-size: 1.4rem;
