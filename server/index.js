@@ -4,6 +4,7 @@ const path = require('path');
 const axios = require('axios');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,10 +32,14 @@ const apiLimiter = rateLimit({
 
 // === Middleware ===
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
-// === Helper Function ===
-const callOpenRouter = async (messages, res, origin) => {
+// === Multer setup for file uploads ===
+const upload = multer({ dest: 'uploads/' });
+
+// === Helper Function for OpenRouter ===
+const callOpenRouter = async (messages, origin) => {
   try {
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
@@ -96,7 +101,6 @@ app.post('/api/ask', apiLimiter, async (req, res) => {
         },
         { role: 'user', content: req.body.question }
       ],
-      res,
       req.headers.origin
     );
     res.json({ answer });
@@ -125,7 +129,6 @@ app.post('/api/generate-complaint', apiLimiter, async (req, res) => {
         { role: 'system', content: 'You are a legal assistant helping write formal Indian legal complaints.' },
         { role: 'user', content: prompt }
       ],
-      res,
       req.headers.origin
     );
 
@@ -134,6 +137,58 @@ app.post('/api/generate-complaint', apiLimiter, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+// === Complaint Submission Endpoint with file uploads ===
+app.post(
+  '/api/send-complaint',
+  apiLimiter,
+  upload.fields([
+    { name: 'audio', maxCount: 1 },
+    { name: 'photo', maxCount: 1 },
+    { name: 'video', maxCount: 1 }
+  ]),
+  (req, res) => {
+    try {
+      const {
+        name,
+        incidentDate,
+        location,
+        city,
+        state,
+        country,
+        pincode,
+        crimeType,
+        culpritName,
+        incidentTime,
+        description,
+        complaintText
+      } = req.body;
+
+      // Basic validation
+      if (
+        !name || !incidentDate || !location || !city || !state || !country ||
+        !pincode || !crimeType || !description || !complaintText
+      ) {
+        return res.status(400).json({ success: false, error: 'Missing required fields.' });
+      }
+
+      // Files info available in req.files
+      // e.g. req.files.audio, req.files.photo, req.files.video
+      // TODO: Store files securely or process as needed
+      console.log('Received complaint submission:');
+      console.log({ name, incidentDate, location, city, state, country, pincode, crimeType, culpritName, incidentTime, description });
+      console.log('Files:', req.files);
+      console.log('Complaint Text:', complaintText);
+
+      // You can implement saving to DB, sending emails, etc. here
+
+      res.json({ success: true, message: 'Complaint submitted successfully.' });
+    } catch (error) {
+      console.error('Error in /api/send-complaint:', error);
+      res.status(500).json({ success: false, error: 'Internal server error' });
+    }
+  }
+);
 
 // === Voice Log (Mock endpoint) ===
 app.post('/api/voice-log', apiLimiter, async (req, res) => {
