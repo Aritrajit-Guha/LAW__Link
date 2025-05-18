@@ -5,7 +5,7 @@ let videoRecorder, videoChunks = [], videoStream = null;
 // Dynamic backend URL for local vs online deployment
 const BACKEND_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
     ? 'http://localhost:5000'     // Change if your local backend uses another port
-    : 'https://your-backend-service.onrender.com'; // Replace with your deployed backend URL
+    : 'https://law-link.onrender.com'; // Replace with your deployed backend URL
 
 navigator.geolocation.getCurrentPosition(
   position => {
