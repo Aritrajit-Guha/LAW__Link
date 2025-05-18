@@ -2,6 +2,11 @@ let audioBlob, videoBlob, photoDataURL;
 let mediaRecorder, chunks = [], audioStream = null;
 let videoRecorder, videoChunks = [], videoStream = null;
 
+// Dynamic backend URL for local vs online deployment
+const BACKEND_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') 
+    ? 'http://localhost:5000'     // Change if your local backend uses another port
+    : 'https://your-backend-service.onrender.com'; // Replace with your deployed backend URL
+
 navigator.geolocation.getCurrentPosition(
   position => {
     document.getElementById('latitude').innerText = position.coords.latitude;
@@ -111,7 +116,7 @@ document.getElementById('stopVideo').onclick = () => {
   document.getElementById('stopVideoRecord').disabled = true;
 };
 
-// Generate complaint with backend call
+// Generate complaint with backend call using dynamic BACKEND_URL
 document.getElementById('generateComplaint').onclick = async () => {
   const name = document.getElementById('victimName').value.trim();
   const incidentDate = document.getElementById('incidentDate').value;
@@ -129,7 +134,7 @@ document.getElementById('generateComplaint').onclick = async () => {
   const location = `${city}, ${state}, ${country} - ${pincode}`;
 
   try {
-    const res = await fetch('/api/generate-complaint', {
+    const res = await fetch(`${BACKEND_URL}/api/generate-complaint`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, incidentDate, location, description })
