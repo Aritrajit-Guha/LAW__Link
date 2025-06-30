@@ -7,6 +7,11 @@ const toggleLink = document.getElementById("toggle-link");
 const submitBtn = document.getElementById("submit-btn");
 const form = document.getElementById("authForm");
 
+// 👇 Add: Detect current environment
+const backendURL = window.location.hostname.includes("localhost")
+  ? "http://localhost:5000"
+  : "https://law-link.onrender.com"; // 🔁 Replace with your real backend URL
+
 toggleLink.addEventListener("click", () => {
   if (mode === "login") {
     mode = "signup";
@@ -37,7 +42,8 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  const res = await fetch(`/api/${mode}`, {
+  // 👇 Use full backend URL dynamically
+  const res = await fetch(`${backendURL}/api/${mode}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
