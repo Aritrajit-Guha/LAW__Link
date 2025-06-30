@@ -35,6 +35,36 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
+// === LOGIN ===
+let users = [{ username: "admin", password: "1234" }];
+
+app.post("/api/login", (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username && u.password === password);
+
+  if (user) {
+    res.json({ success: true, message: "Login successful" });
+  } else {
+    res.status(401).json({ success: false, message: "Invalid credentials" });
+  }
+});
+
+app.post("/api/signup", (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ success: false, message: "All fields required." });
+  }
+
+  const exists = users.find(u => u.username === username);
+  if (exists) {
+    return res.status(400).json({ success: false, message: "User already exists." });
+  }
+
+  users.push({ username, password });
+  res.json({ success: true, message: "Signup successful" });
+});
+
+
 // === Multer setup for file uploads ===
 const upload = multer({ dest: 'uploads/' });
 
@@ -42,9 +72,9 @@ const upload = multer({ dest: 'uploads/' });
 const callOpenRouter = async (messages, origin) => {
   try {
     const response = await axios.post(
-      'https://openrouter.ai/api/v1/chat/completions',
+      'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: 'gpt-3.5-turbo',
+        model: 'meta-llama/llama-4-scout-17b-16e-instruct',
         messages
       },
       {
