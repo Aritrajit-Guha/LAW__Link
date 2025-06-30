@@ -86,9 +86,13 @@ It offers AI-generated complaint letters, smart reporting features, and emergenc
 ⚙️ How It Works
 
 1️⃣ User visits site — sees login/signup form
+
 2️⃣ After login, user is redirected to homepage (index.html)
+
 3️⃣ Select legal toolkit → input details
+
 4️⃣ AI processes request (complaint or legal answer)
+
 5️⃣ User previews + downloads PDF or sends complaint
 
 📸 Screenshots (to add)
@@ -119,9 +123,8 @@ node index.js
 
 Frontend is served from public/, no build tools needed.
 
-🗂 Project Structure
-.
-└── LawLink/
+🗂 Project Structure LawLinkChat:
+
     ├── node_modules
     ├── public/
     │   ├── css/
@@ -190,7 +193,6 @@ Currently using in-memory auth – no persistent DB yet.
 🔒 Ideal for demos, not production.
 
 🤝 Contributing
-
 Want to improve LawLink? 🧑‍💻
 ‣ Fork the repo, commit changes, and send a PR!
 🐛 Found a bug? Let us know
