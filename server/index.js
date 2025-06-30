@@ -9,18 +9,22 @@ const multer = require('multer');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Environment variable check
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-if (!OPENROUTER_API_KEY) {
-  console.error('FATAL: OpenRouter API key missing in environment variables.');
-  process.exit(1);
-}
+// === CORS Setup ===
+const allowedOrigins = [
+  'http://localhost:5000',
+  'https://legal-genie-phi.vercel.app' // ✅ Replace with your actual frontend domain
+];
 
-// === CORS ===
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://legal-genie-phi.vercel.app'],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST'],
-  credentials: false
+  credentials: true
 }));
 
 // === Rate Limiting ===
@@ -35,7 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../public')));
 
-// === LOGIN ===
+// === In-Memory User Auth ===
 let users = [{ username: "admin", password: "1234" }];
 
 app.post("/api/login", (req, res) => {
@@ -64,11 +68,10 @@ app.post("/api/signup", (req, res) => {
   res.json({ success: true, message: "Signup successful" });
 });
 
-
 // === Multer setup for file uploads ===
 const upload = multer({ dest: 'uploads/' });
 
-// === Helper Function for OpenRouter ===
+// === Helper Function (GROQ Model) ===
 const callOpenRouter = async (messages, origin) => {
   try {
     const response = await axios.post(
@@ -79,7 +82,7 @@ const callOpenRouter = async (messages, origin) => {
       },
       {
         headers: {
-          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
           'HTTP-Referer': origin || 'https://legal-genie-phi.vercel.app/'
         }
@@ -87,19 +90,17 @@ const callOpenRouter = async (messages, origin) => {
     );
     return response.data.choices[0].message.content;
   } catch (error) {
-    console.error('OpenRouter API Error:', error.response?.data || error.message);
+    console.error('GROQ API Error:', error.response?.data || error.message);
     throw new Error('Failed to get AI response. Please try again.');
   }
 };
 
 // === Routes ===
 
-// Root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-// Feature Pages
 app.get('/features/lawlink-bot', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/features/lawlink-bot/index.html'));
 });
@@ -116,7 +117,7 @@ app.get('/features/harassment-complaint', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/features/harassment-complaint/index.html'));
 });
 
-// === AI Chat Assistant ===
+// === AI Assistant ===
 app.post('/api/ask', apiLimiter, async (req, res) => {
   if (!req.body.question) {
     return res.status(400).json({ error: 'Question is required.' });
@@ -168,7 +169,7 @@ app.post('/api/generate-complaint', apiLimiter, async (req, res) => {
   }
 });
 
-// === Complaint Submission Endpoint with file uploads ===
+// === Complaint Submission with Media ===
 app.post(
   '/api/send-complaint',
   apiLimiter,
@@ -180,37 +181,23 @@ app.post(
   (req, res) => {
     try {
       const {
-        name,
-        incidentDate,
-        location,
-        city,
-        state,
-        country,
-        pincode,
-        crimeType,
-        culpritName,
-        incidentTime,
-        description,
-        complaintText
+        name, incidentDate, location, city, state, country,
+        pincode, crimeType, culpritName, incidentTime,
+        description, complaintText
       } = req.body;
 
-      // Basic validation
-      if (
-        !name || !incidentDate || !location || !city || !state || !country ||
-        !pincode || !crimeType || !description || !complaintText
-      ) {
+      if (!name || !incidentDate || !location || !city || !state || !country ||
+        !pincode || !crimeType || !description || !complaintText) {
         return res.status(400).json({ success: false, error: 'Missing required fields.' });
       }
 
-      // Files info available in req.files
-      // e.g. req.files.audio, req.files.photo, req.files.video
-      // TODO: Store files securely or process as needed
-      console.log('Received complaint submission:');
-      console.log({ name, incidentDate, location, city, state, country, pincode, crimeType, culpritName, incidentTime, description });
-      console.log('Files:', req.files);
-      console.log('Complaint Text:', complaintText);
+      console.log('Complaint Submission:', {
+        name, incidentDate, location, city, state, country,
+        pincode, crimeType, culpritName, incidentTime, description
+      });
 
-      // You can implement saving to DB, sending emails, etc. here
+      console.log('Files:', req.files);
+      console.log('Complaint:', complaintText);
 
       res.json({ success: true, message: 'Complaint submitted successfully.' });
     } catch (error) {
@@ -220,8 +207,8 @@ app.post(
   }
 );
 
-// === Voice Log (Mock endpoint) ===
-app.post('/api/voice-log', apiLimiter, async (req, res) => {
+// === Voice Log Mock Endpoint ===
+app.post('/api/voice-log', apiLimiter, (req, res) => {
   if (!req.body.audioFile) {
     return res.status(400).json({ error: 'Audio file is required.' });
   }
@@ -229,7 +216,7 @@ app.post('/api/voice-log', apiLimiter, async (req, res) => {
   res.json({ success: true, transcription: "Mock transcription for audio." });
 });
 
-// === 404 Handler ===
+// === 404 Fallback ===
 app.use((req, res) => {
   res.status(404).sendFile(path.join(__dirname, '../public/404.html'));
 });
