@@ -60,11 +60,12 @@ const startLiveTracking = async () => {
     const smsBtn = document.getElementById("sendSmsBtn");
     if (smsBtn) {
       smsBtn.addEventListener("click", () => {
-        const message = `🚨 Emergency! Track my live location: ${trackingUrl}`;
-        const recipients = ["+917908122256", "+919932025868"]; // Update as needed
-        const smsLink = `sms:${recipients.join(",")}?body=${encodeURIComponent(message)}`;
-        window.location.href = smsLink;
-      });
+  const message = `🚨 Emergency Alert!\nTrack my live location: ${trackingUrl}\nTrack ID: ${trackId}`;
+  const recipients = ["+917908122256", "+919932025868"]; // Update as needed
+  const smsLink = `sms:${recipients.join(",")}?body=${encodeURIComponent(message)}`;
+  window.location.href = smsLink;
+});
+
     }
   }
 
