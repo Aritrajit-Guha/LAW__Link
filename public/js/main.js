@@ -3,7 +3,6 @@ if (window.location.pathname === "/" && localStorage.getItem("auth") !== "true")
   window.location.href = "/sections/auth/auth.html";
 }
 
-// Normal site enhancements
 document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('.nav-link');
   const currentPath = window.location.pathname;
@@ -15,50 +14,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const fadeElements = document.querySelectorAll('.fade-in');
-  const appearOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  };
-
-  const appearOnScroll = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('appear');
-      observer.unobserve(entry.target);
-    });
-  }, appearOptions);
-
-  fadeElements.forEach(el => appearOnScroll.observe(el));
-
-  setupSOSButton(); // ✅ Ensure it's called after DOM ready
+  setupSOSButton(); // ✅ Run after DOM is loaded
 });
 
 // ============ SOS TRACKING LOGIC ============ //
 
 let trackingStarted = false;
 let watchId = null;
-let sosBtn = null;
 let holdTimer = null;
 
-let trackId = localStorage.getItem("lawlink_track_id");
 let userId = localStorage.getItem("lawlink_user_id");
-
 if (!userId) {
   userId = crypto.randomUUID();
   localStorage.setItem("lawlink_user_id", userId);
-}
-if (!trackId) {
-  trackId = crypto.randomUUID();
-  localStorage.setItem("lawlink_track_id", trackId);
 }
 
 const startLiveTracking = async () => {
   if (trackingStarted) return;
   trackingStarted = true;
 
-  console.log("🚨 SOS Triggered — Live tracking started.");
+  // 🔁 Generate new tracking ID every SOS press
+  const trackId = crypto.randomUUID();
+  localStorage.setItem("lawlink_track_id", trackId);
 
+  console.log("🚨 SOS Triggered — Live tracking started with ID:", trackId);
+
+  const baseUrl = window.location.origin;
+  const trackingUrl = `${baseUrl}/features/live-track/index.html?id=${trackId}`;
+
+  const linkDiv = document.getElementById("sos-link-display");
+  if (linkDiv) {
+    linkDiv.innerHTML = `
+      <p>📡 <strong>Live Tracking ID:</strong> <span style="color:limegreen;">${trackId}</span></p>
+      <p>🔗 <a href="${trackingUrl}" target="_blank">${trackingUrl}</a></p>
+      <button id="sendSmsBtn" style="margin-top: 10px;">📤 Share via SMS</button>
+    `;
+
+    try {
+      await navigator.clipboard.writeText(trackingUrl);
+      console.log("🔗 Link copied to clipboard!");
+    } catch (e) {
+      console.warn("⚠️ Clipboard failed:", e.message);
+    }
+
+    const smsBtn = document.getElementById("sendSmsBtn");
+    if (smsBtn) {
+      smsBtn.addEventListener("click", () => {
+        const message = `🚨 Emergency! Track my live location: ${trackingUrl}`;
+        const recipients = ["+917908122256", "+919932025868"]; // Update as needed
+        const smsLink = `sms:${recipients.join(",")}?body=${encodeURIComponent(message)}`;
+        window.location.href = smsLink;
+      });
+    }
+  }
+
+  // Start geolocation watch
   watchId = navigator.geolocation.watchPosition(
     async position => {
       const { latitude: lat, longitude: long } = position.coords;
@@ -82,42 +92,10 @@ const startLiveTracking = async () => {
     },
     { enableHighAccuracy: true }
   );
-
-  const baseUrl = window.location.origin;
-  const trackingUrl = `${baseUrl}/features/live-track/index.html?id=${trackId}`;
-
-  const linkDiv = document.getElementById("sos-link-display");
-  if (linkDiv) {
-    linkDiv.innerHTML = `
-      <p>📡 Tracking Link (share with emergency contact):</p>
-      <a href="${trackingUrl}" target="_blank">${trackingUrl}</a>
-      <br><br>
-      <button id="sendSmsBtn" style="margin-top: 10px;">📤 Share via SMS</button>
-    `;
-
-    try {
-      await navigator.clipboard.writeText(trackingUrl);
-      console.log("🔗 Link copied to clipboard!");
-    } catch (e) {
-      console.warn("⚠️ Clipboard failed:", e.message);
-    }
-
-    const smsBtn = document.getElementById("sendSmsBtn");
-    if (smsBtn) {
-      smsBtn.addEventListener("click", () => {
-        const message = `🚨 Emergency! Track my live location: ${trackingUrl}`;
-        const recipients = ["+917908122256", "+919932025868"]; // Update as needed
-        const smsLink = `sms:${recipients.join(",")}?body=${encodeURIComponent(message)}`;
-        window.location.href = smsLink;
-      });
-    }
-  } else {
-    console.warn("📭 sos-link-display not found in DOM.");
-  }
 };
 
 const setupSOSButton = () => {
-  sosBtn = document.getElementById("sos-button");
+  const sosBtn = document.getElementById("sos-button");
   if (!sosBtn) {
     console.warn("⚠️ SOS button not found in DOM.");
     return;
