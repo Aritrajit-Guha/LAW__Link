@@ -14,8 +14,11 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-rate-limit": "^6.8.1",
+    "mongodb": "^6.17.0",
+    "mongoose": "^8.16.2",
     "multer": "^1.4.5-lts.2",
     "pdfkit": "^0.17.0",
+    "uuid": "^11.1.0",
     "vercel": "^41.0.2"
   },
   "devDependencies": {
