@@ -29,6 +29,11 @@ if (!userId) {
   localStorage.setItem("lawlink_user_id", userId);
 }
 
+// ✅ Backend URL fix
+const BACKEND_URL = window.location.hostname === "localhost"
+  ? "http://localhost:5000"
+  : "https://law-link.onrender.com";
+
 const startLiveTracking = async () => {
   if (trackingStarted) return;
   trackingStarted = true;
@@ -60,12 +65,11 @@ const startLiveTracking = async () => {
     const smsBtn = document.getElementById("sendSmsBtn");
     if (smsBtn) {
       smsBtn.addEventListener("click", () => {
-  const message = `🚨 Emergency Alert!\nTrack my live location: ${trackingUrl}\nTrack ID: ${trackId}`;
-  const recipients = ["+917908122256", "+919932025868"]; // Update as needed
-  const smsLink = `sms:${recipients.join(",")}?body=${encodeURIComponent(message)}`;
-  window.location.href = smsLink;
-});
-
+        const message = `🚨 Emergency Alert!\nTrack my live location: ${trackingUrl}\nTrack ID: ${trackId}`;
+        const recipients = ["+917908122256", "+919932025868"]; // Update as needed
+        const smsLink = `sms:${recipients.join(",")}?body=${encodeURIComponent(message)}`;
+        window.location.href = smsLink;
+      });
     }
   }
 
@@ -78,7 +82,7 @@ const startLiveTracking = async () => {
       const payload = { userId, trackId, lat, long, timestamp };
 
       try {
-        await fetch("/api/update-location", {
+        await fetch(`${BACKEND_URL}/api/update-location`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
