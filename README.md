@@ -105,21 +105,25 @@ It offers AI-generated complaint letters, smart reporting features, and emergenc
 ⚡ Local Setup Guide
 
 1️⃣ Clone the Repo
-git clone https://github.com/your-username/lawlink.git
+
+    git clone https://github.com/your-username/lawlink.git
 
 2️⃣ Install Server Dependencies
-cd server
-npm install
+
+    cd server
+    npm install
 
 3️⃣ Setup .env File
 
-ini
-Copy
-Edit
-OPENROUTER_API_KEY=your_groq_key
+    ini
+    Copy
+    Edit
+    OPENROUTER_API_KEY=your_groq_key
+    
 4️⃣ Run the Server
-node index.js
-→ Visit: http://localhost:5000
+
+    node index.js
+    → Visit: http://localhost:5000
 
 Frontend is served from public/, no build tools needed.
 
@@ -185,8 +189,9 @@ Frontend is served from public/, no build tools needed.
     └── package-lock.json
 
 🔐 Login Credentials (Demo)
-👤 Username: admin
-🔑 Password: 1234
+
+    👤 Username: admin
+    🔑 Password: 1234
 
 🔐 Security Note
 Currently using in-memory auth – no persistent DB yet.
@@ -200,7 +205,7 @@ Want to improve LawLink? 🧑‍💻
 
 🔗 Connect with Developer
 
-👨‍💻 Made with ❤️ by Aritra
-🔗 Linktree: https://linktr.ee/aritrajit_guha
-📬 Contact: lawlinkproj@gmail.com
+    👨‍💻 Made with ❤️ by Aritra
+    🔗 Linktree: https://linktr.ee/aritrajit_guha
+    📬 Contact: lawlinkproj@gmail.com
 
