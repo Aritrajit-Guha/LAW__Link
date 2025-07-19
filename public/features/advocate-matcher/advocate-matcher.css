@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  color: #333;
+}
+
+header {
+  background: #002244;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+form {
+  margin-top: 10px;
+}
+
+select, button {
+  padding: 10px;
+  font-size: 16px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  background: #0077cc;
+  color: white;
+  cursor: pointer;
+}
+
+.advocate-list {
+  max-width: 1000px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.advocate-card {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.advocate-card:hover {
+  transform: scale(1.02);
+}
+
+.advocate-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.advocate-info {
+  padding: 20px;
+  flex: 1;
+}
+
+.advocate-info h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.advocate-info p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.advocate-extra {
+  display: none;
+  margin-top: 10px;
+  font-size: 14px;
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.advocate-card:hover .advocate-extra {
+  display: block;
+}
+
+a {
+  color: #0077cc;
+  text-decoration: none;
+}
