@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advocate Matcher</title>
+  <link rel="stylesheet" href="/features/advocate-matcher/advocate-matcher.css"/>
+</head>
+<body>
+  <header>
+    <h1>Find the Right Advocate</h1>
+    <form id="matcherForm">
+      <select id="legalIssue" required>
+        <option value="">-- Select Legal Issue --</option>
+        <option value="family">Family</option>
+        <option value="property">Property</option>
+        <option value="cyber">Cyber</option>
+        <option value="criminal">Criminal</option>
+        <option value="labor">Labor</option>
+        <option value="harassment">Harassment</option>
+      </select>
+      <button type="submit">Search</button>
+    </form>
+  </header>
+
+  <main>
+    <div class="container">
+      <div id="result" class="advocate-list">
+        <!-- Advocate cards will appear here -->
+      </div>
+    </div>
+  </main>
+
+  <script src="/features/advocate-matcher/advocate-matcher.js"></script>
+</body>
+</html>

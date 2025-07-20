@@ -1,0 +1,111 @@
+/* Overall page background and styling */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container for the advocate list */
+#advocateList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 40px 20px;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Each advocate card */
+.advocate-card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.advocate-card:hover {
+  transform: scale(1.02);
+  background: rgba(50, 50, 50, 0.95);
+}
+
+/* Advocate photo */
+.advocate-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  align-self: center;
+  margin-bottom: 16px;
+  border: 3px solid #4fc3f7;
+}
+
+/* Advocate name and field */
+.advocate-card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.advocate-card .field {
+  text-align: center;
+  font-size: 1rem;
+  color: #60f7d3;
+  margin: 4px 0;
+}
+
+/* Other details in vertical style */
+.advocate-card .info {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+/* Extra info on hover */
+.advocate-card .extra-details {
+  display: none;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #aaaaaa;
+}
+
+.advocate-card:hover .extra-details {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Simple fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+@media screen and (max-width: 600px) {
+  .advocate-card {
+    padding: 16px;
+  }
+
+  .advocate-card img {
+    width: 100px;
+    height: 100px;
+  }
+}

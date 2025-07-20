@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LawLink | Advocate Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <header class="dashboard-header">
+    <div class="logo">⚖️ LawLink Advocate Panel</div>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <main class="dashboard-container">
+    <h1>Welcome, <span id="advocateName">Advocate</span></h1>
+
+    <div class="grid-cards">
+      <div class="card profile">
+        <h2><i class="fas fa-user-tie"></i> Profile</h2>
+        <p><strong>Name:</strong> <span id="profileName">N/A</span></p>
+        <p><strong>Field:</strong> <span id="profileField">N/A</span></p>
+        <p><strong>Experience:</strong> <span id="profileExperience">N/A</span></p>
+        <p><strong>Location:</strong> <span id="profileLocation">N/A</span></p>
+        <p><strong>Phone:</strong> <span id="profilePhone">N/A</span></p>
+      </div>
+
+      <div class="card appointments">
+        <h2><i class="fas fa-calendar-alt"></i> Appointments</h2>
+        <ul id="appointmentList">
+          <li>No appointments scheduled.</li>
+        </ul>
+      </div>
+
+      <div class="card payments">
+        <h2><i class="fas fa-rupee-sign"></i> Earnings</h2>
+        <p><strong>Payments Received:</strong> ₹<span id="paymentsReceived">0</span></p>
+        <p><strong>Payments Pending:</strong> ₹<span id="paymentsPending">0</span></p>
+        <p><strong>Total Consultations:</strong> <span id="totalConsults">0</span></p>
+      </div>
+
+      <div class="card subscription">
+        <h2><i class="fas fa-receipt"></i> Subscription</h2>
+        <p>Status: <span id="subscriptionStatus" class="badge active">Active</span></p>
+        <p>Plan: <span id="subscriptionPlan">Premium</span></p>
+        <p>Next Payment: <span id="nextDueDate">15 Aug 2025</span></p>
+      </div>
+    </div>
+
+    <div class="tables-container">
+      <div class="table-wrapper">
+        <h3>🧑‍💼 Client List</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Slot</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="clientTableBody">
+            <tr><td colspan="4">No clients yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-wrapper">
+        <h3>💳 Payment History</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Client</th>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Method</th>
+            </tr>
+          </thead>
+          <tbody id="paymentHistoryBody">
+            <tr><td colspan="4">No payments recorded.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Simulated user data
+    const advocate = {
+      name: "Adv. Rina Sharma",
+      field: "Family Law",
+      location: "Kolkata, West Bengal",
+      experience: "12 years",
+      phone: "+91-9876543210",
+      paymentsReceived: 5400,
+      paymentsPending: 1200,
+      totalConsults: 13,
+      subscriptionStatus: "Active",
+      plan: "Premium",
+      nextDue: "15 Aug 2025"
+    };
+
+    // Set data
+    document.getElementById("advocateName").textContent = advocate.name;
+    document.getElementById("profileName").textContent = advocate.name;
+    document.getElementById("profileField").textContent = advocate.field;
+    document.getElementById("profileLocation").textContent = advocate.location;
+    document.getElementById("profileExperience").textContent = advocate.experience;
+    document.getElementById("profilePhone").textContent = advocate.phone;
+    document.getElementById("paymentsReceived").textContent = advocate.paymentsReceived;
+    document.getElementById("paymentsPending").textContent = advocate.paymentsPending;
+    document.getElementById("totalConsults").textContent = advocate.totalConsults;
+    document.getElementById("subscriptionStatus").textContent = advocate.subscriptionStatus;
+    document.getElementById("subscriptionPlan").textContent = advocate.plan;
+    document.getElementById("nextDueDate").textContent = advocate.nextDue;
+
+    // Add dummy clients
+    const clients = [
+      { name: "Aritra Roy", date: "18 Jul 2025", slot: "10:00 – 10:30", status: "Completed" },
+      { name: "Nikita Sharma", date: "20 Jul 2025", slot: "2:00 – 2:30", status: "Scheduled" }
+    ];
+    const tbody = document.getElementById("clientTableBody");
+    tbody.innerHTML = "";
+    clients.forEach(c => {
+      const row = `<tr><td>${c.name}</td><td>${c.date}</td><td>${c.slot}</td><td>${c.status}</td></tr>`;
+      tbody.innerHTML += row;
+    });
+
+    // Dummy payments
+    const payments = [
+      { client: "Aritra Roy", date: "18 Jul 2025", amount: 650, method: "PhonePe" },
+      { client: "Nikita Sharma", date: "20 Jul 2025", amount: 600, method: "Google Pay" }
+    ];
+    const payTbody = document.getElementById("paymentHistoryBody");
+    payTbody.innerHTML = "";
+    payments.forEach(p => {
+      const row = `<tr><td>${p.client}</td><td>${p.date}</td><td>₹${p.amount}</td><td>${p.method}</td></tr>`;
+      payTbody.innerHTML += row;
+    });
+
+    function logout() {
+      localStorage.removeItem("auth");
+      localStorage.removeItem("authRole");
+      window.location.href = "/sections/auth/auth.html";
+    }
+  </script>
+</body>
+</html>

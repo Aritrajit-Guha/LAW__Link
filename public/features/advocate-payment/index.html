@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advocate Payment</title>
+  <link rel="stylesheet" href="/features/advocate-payment/payment.css" />
+</head>
+<body>
+  <div class="payment-container">
+    <h1>Appointment & Payment</h1>
+
+    <section class="advocate-details">
+      <img id="advocatePhoto" src="" alt="Advocate Photo" />
+      <div class="advocate-info">
+        <h2 id="advocateName">Advocate Name</h2>
+        <p><strong>Field:</strong> <span id="advocateField"></span></p>
+        <p><strong>Location:</strong> <span id="advocateLocation"></span></p>
+        <p><strong>Mode:</strong> Video Call</p>
+      </div>
+    </section>
+
+    <section class="appointment">
+      <label for="slot">Select Appointment Slot:</label>
+      <select id="slot">
+        <option>10:00 AM – 10:30 AM</option>
+        <option>11:00 AM – 11:30 AM</option>
+        <option>2:00 PM – 2:30 PM</option>
+        <option>4:00 PM – 4:30 PM</option>
+        <option>6:00 PM – 6:30 PM</option>
+      </select>
+    </section>
+
+    <section class="invoice">
+      <h3>Invoice Details</h3>
+      <p><strong>Invoice No:</strong> <span id="invoiceId"></span></p>
+      <p><strong>Billing Date:</strong> <span id="billingDate"></span></p>
+      <p><strong>Location:</strong> <span id="advocateLocationInvoice"></span></p>
+
+      <div class="invoice-breakdown">
+        <p>Advocate Fee: ₹<span id="advocateFee">0</span></p>
+        <p>Platform Fee: ₹<span id="platformFee">50</span></p>
+        <p>CGST (9%): ₹<span id="cgst">0</span></p>
+        <p>SGST (9%): ₹<span id="sgst">0</span></p>
+        <hr>
+        <p><strong>Total Payable: ₹<span id="totalFee">0</span></strong></p>
+      </div>
+    </section>
+
+    <section class="payment-methods">
+      <h3>Select Payment Method</h3>
+      <div class="payment-options">
+        <button class="upi-btn">PhonePe</button>
+        <button class="upi-btn">Google Pay</button>
+        <button class="upi-btn">Paytm</button>
+        <button class="upi-btn">Debit Card</button>
+        <button class="upi-btn">Net Banking</button>
+        <button class="upi-btn">Wallet</button>
+      </div>
+    </section>
+  </div>
+  <!-- <script src="/features/advocate-matcher/advocate-matcher.js"></script> -->
+  <script src="/features/advocate-payment/payment.js"></script>
+</body>
+</html>
