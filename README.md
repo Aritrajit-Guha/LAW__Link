@@ -111,7 +111,7 @@ npm install
 
 3️⃣ Setup .env File  
 ```ini
-OPENROUTER_API_KEY=your_groq_key
+API_KEY=your_groq_key
 ```
 
 4️⃣ Run the Server  
