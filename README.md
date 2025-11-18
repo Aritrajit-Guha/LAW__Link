@@ -1,10 +1,12 @@
-🎓 LawLink – Your Justice Companion, Powered by AI
+# 🎓 LawLink – Your Justice Companion, Powered by AI
 
-📖 Overview  
+
+## 📖 Overview  
 LawLink is an AI-powered legal tech platform built to empower individuals with their rights, fight injustice, and seek help through accessible legal tools. ⚖️  
 It offers AI-generated complaint letters, smart reporting features, and emergency legal aid — all under one futuristic interface designed with empathy and impact. 🌐✨
 
-🔥 Key Highlights  
+
+## 🔥 Key Highlights  
 ✔️ Unified Login + Signup 🧑‍💻  
 ✔️ AI-powered legal complaint builder 🤖  
 ✔️ Silent voice and video logging for evidence 🧾🎤📹  
@@ -12,91 +14,91 @@ It offers AI-generated complaint letters, smart reporting features, and emergenc
 ✔️ Groq LLaMA-4 integrated legal chatbot 💬  
 ✔️ Works seamlessly on both localhost & Vercel 🚀  
 
-🎯 Innovation & Impact  
+## 🎯 Innovation & Impact  
 
-🌍 What Makes LawLink Special?  
-🔹 Built for real-time justice with instant evidence capture and reporting  
-🔹 🧠 Uses GROQ’s LLaMA-4-SCOUT-17B for formal legal drafting  
-🔹 Supports vulnerable groups like women and families with dedicated modules  
-🔹 🕵️ Detects, logs, and formats complaints for real-world action  
-🔹 Combines AI, law, and empathy — all in one modern, clean experience  
+### 🌍 What Makes LawLink Special?  
+ 🔹 Built for real-time justice with instant evidence capture and reporting  
+ 🔹 🧠 Uses GROQ’s LLaMA-4-SCOUT-17B for formal legal drafting  
+ 🔹 Supports vulnerable groups like women and families with dedicated modules  
+ 🔹 🕵️ Detects, logs, and formats complaints for real-world action  
+ 🔹 Combines AI, law, and empathy — all in one modern, clean experience  
 
-👥 Who Can Use It?  
+### 👥 Who Can Use It?  
 👩‍⚖️ Citizens – File complaints, understand your rights, stay protected  
 👩‍💻 Legal Activists – Use the toolkit to help victims with auto-complaints  
 🚔 First Responders – Gather instant reports via the real-time modules  
 🏢 NGOs/Legal Startups – Integrate features into campaigns for justice awareness  
 
-🚀 Modules & Features  
+## 🚀 Modules & Features  
 
-🧠 LAWgic Bot – AI Legal Assistant  
+### 🧠 LAWgic Bot – AI Legal Assistant  
 ‣ Trained on IPC, CrPC, and Indian Evidence Act  
 ‣ Provides law-based responses with relevant section citations  
 ‣ Accessible 24/7 with simple UI for public use  
 
-📄 Complaint Generator + PDF Export  
+### 📄 Complaint Generator + PDF Export  
 ‣ User inputs incident details → AI writes formal complaint  
 ‣ Download complaint as PDF  
 ‣ Ideal for FIRs, HR complaints, or court submissions  
 
-🎤 Silent Voice Log  
+### 🎤 Silent Voice Log  
 ‣ Record voice without alert  
 ‣ Save locally for evidence  
 ‣ Comes with auto-download for discretion  
 
-📷 Violation Reporter  
+### 📷 Violation Reporter  
 ‣ Capture voice, video, or photos  
 ‣ Geotags location (auto)  
 ‣ AI drafts complaint → preview → send to authority  
 
-👨‍👩‍👧 Family & Marital Rights Toolkit  
+### 👨‍👩‍👧 Family & Marital Rights Toolkit  
 ‣ Dowry & domestic violence awareness  
 ‣ Encrypted logging system (SafeBond)  
 ‣ JusticeMate app for legal actions  
 
-♀️ Women’s Rights & Safety  
+### ♀️ Women’s Rights & Safety  
 ‣ Emergency connectors  
 ‣ Quick harassment report tool  
 ‣ Right Guide with voice reading option  
 
-📞 Contact Page + Tech Stack Showcase  
+### 📞 Contact Page + Tech Stack Showcase  
 ‣ Contact info, location, socials  
 ‣ Technologies used with logos (Node, Express, OpenAI, Vercel etc.)  
 
-🛠️ Tech Stack  
+## 🛠️ Tech Stack  
 
-🎨 Frontend  
+### 🎨 Frontend  
 ‣ HTML, CSS, JavaScript  
 ‣ Tailored animations & futuristic UI  
 ‣ Runs in public/index.html served by Express  
 
-🧠 Backend & AI  
+### 🧠 Backend & AI  
 ‣ Node.js + Express server  
 ‣ AI via Groq LLaMA-4-Scout 17B  
 ‣ In-memory auth system (login/signup)  
 ‣ File handling via Multer  
 ‣ Rate-limited endpoints for AI use  
 
-🌐 Deployment  
+### 🌐 Deployment  
 ‣ Frontend: Vercel  
 ‣ Backend: Vercel / Render  
 ‣ Dynamic CORS config (auto handles localhost + production URLs)  
 
-⚙️ How It Works  
+## ⚙️ How It Works  
 1️⃣ User visits site — sees login/signup form  
 2️⃣ After login, user is redirected to homepage (index.html)  
 3️⃣ Select legal toolkit → input details  
 4️⃣ AI processes request (complaint or legal answer)  
 5️⃣ User previews + downloads PDF or sends complaint  
 
-📸 Screenshots (to add)  
-🏠 Homepage  
-🔐 Auth Page  
-🧠 LAWgic Chat  
-📄 Complaint Preview  
-🎙️ Violation Reporter  
+## 📸 Screenshots (to add)  
+### 🏠 Homepage  
+### 🔐 Auth Page  
+### 🧠 LAWgic Chat  
+### 📄 Complaint Preview  
+### 🎙️ Violation Reporter  
 
-⚡ Local Setup Guide  
+## ⚡ Local Setup Guide  
 
 1️⃣ Clone the Repo  
 ```bash
@@ -122,7 +124,7 @@ node index.js
 
 Frontend is served from `public/`, no build tools needed.
 
-🗂 Project Structure LawLinkChat:  
+## 🗂 Project Structure LawLinkChat:  
 ```
 ├── node_modules  
 ├── public/  
@@ -184,21 +186,21 @@ Frontend is served from `public/`, no build tools needed.
 └── package-lock.json  
 ```
 
-🔐 Login Credentials (Demo)  
+## 🔐 Login Credentials (Demo)  
 👤 Username: `admin`  
 🔑 Password: `1234`  
 
-🔐 Security Note  
+## 🔐 Security Note  
 Currently using in-memory auth – no persistent DB yet.  
 🔒 Ideal for demos, not production.  
 
-🤝 Contributing  
+## 🤝 Contributing  
 Want to improve LawLink? 🧑‍💻  
 ‣ Fork the repo, commit changes, and send a PR!  
 🐛 Found a bug? Let us know  
 💡 Have ideas? Suggest features or UI upgrades  
 
-🔗 Connect with Developer  
+## 🔗 Connect with Developer  
 👨‍💻 Made with ❤️ by Aritra  
 🔗 Linktree: https://linktr.ee/aritrajit_guha  
 📬 Contact: lawlinkproj@gmail.com
