@@ -201,6 +201,6 @@ Want to improve LawLink? 🧑‍💻
 💡 Have ideas? Suggest features or UI upgrades  
 
 ## 🔗 Connect with Developer  
-👨‍💻 Made with love 
+👨‍💻 Made with love
 Project Link:https://legal-genie-phi.vercel.app/
 📬 Contact: lawlinkproj@gmail.com
