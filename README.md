@@ -200,7 +200,8 @@ Want to improve LawLink? 🧑‍💻
 🐛 Found a bug? Let us know  
 💡 Have ideas? Suggest features or UI upgrades  
 
-## 🔗 Connect with Developer  
-👨‍💻 Made with ❤️ by Aritra  
-🔗 Linktree: https://linktr.ee/aritrajit_guha  
+🔗 Connect with Developer  
+👨‍💻 Made with love  
+Project: https://legal-genie-phi.vercel.app  
 📬 Contact: lawlinkproj@gmail.com
+
