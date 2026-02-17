@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = "mongodb+srv://lawlink:Dhakichiku7@cluster0.r3a6s17.mongodb.net/lawlink?retryWrites=true&w=majority&appName=Cluster0";
+const MONGO_URI = process.env.MONGO_URI;
 
 const connectDB = async () => {
   try {
@@ -13,3 +13,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
