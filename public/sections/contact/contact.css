@@ -41,6 +41,7 @@ body {
 
 .site-header nav a {
   color: #ccc;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
